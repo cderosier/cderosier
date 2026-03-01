@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Charles DeRosier IV — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #09090b;
+      --surface: #0f0f12;
+      --surface2: #141418;
+      --border: #1c1c24;
+      --border2: #252530;
+      --accent: #c8a97e;
+      --accent-dim: rgba(200,169,126,0.12);
+      --accent2: #7a9fc4;
+      --accent2-dim: rgba(122,159,196,0.12);
+      --text: #e2ddd6;
+      --muted: #5e5c6e;
+      --muted2: #8a8699;
+      --ff-display: 'Cormorant Garamond', serif;
+      --ff-mono: 'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--ff-mono);
+      font-size: 14px;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3rem;
+      height: 64px;
+      background: rgba(9,9,11,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.03em;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 0 1rem;
+      height: 64px;
+      line-height: 64px;
+      font-size: 0.63rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, background 0.2s, border-color 0.2s;
+      cursor: pointer;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent);
+      background: var(--accent-dim);
+      border-bottom-color: var(--accent);
+    }
+
+    /* PAGES */
+    .page { display: none; min-height: 100vh; padding-top: 64px; }
+    .page.active { display: block; }
+
+    /* HERO */
+    .hero {
+      min-height: calc(100vh - 64px);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 5rem 3rem;
+    }
+
+    .hero-bg-text {
+      position: absolute;
+      right: -1rem;
+      bottom: -3rem;
+      font-family: var(--ff-display);
+      font-size: 20vw;
+      font-weight: 700;
+      color: rgba(200,169,126,0.03);
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 42%;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .hero-content { max-width: 620px; }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.8rem;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--accent); }
+
+    .hero-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #4cba82;
+      box-shadow: 0 0 8px #4cba82;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+    h1.hero-name {
+      font-family: var(--ff-display);
+      font-size: clamp(3.2rem, 6.5vw, 6rem);
+      font-weight: 300;
+      line-height: 1.04;
+      margin-bottom: 1.2rem;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+
+    h1.hero-name em { font-style: italic; color: var(--accent); }
+
+    .hero-title {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 2rem;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .hero-bio {
+      font-size: 0.87rem;
+      line-height: 1.9;
+      color: var(--muted2);
+      max-width: 500px;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.7s 0.4s ease both;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 2rem;
+      font-family: var(--ff-mono);
+      font-size: 0.63rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid;
+      cursor: pointer;
+      transition: all 0.22s;
+      background: none;
+    }
+
+    .btn-gold { background: var(--accent); color: #09090b; border-color: var(--accent); }
+    .btn-gold:hover { background: transparent; color: var(--accent); }
+    .btn-ghost { color: var(--muted2); border-color: var(--border2); }
+    .btn-ghost:hover { color: var(--accent2); border-color: var(--accent2); }
+
+    .hero-stats {
+      position: absolute;
+      right: 3rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      animation: fadeUp 0.7s 0.5s ease both;
+    }
+
+    .hero-headshot {
+      width: 170px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 2px;
+    }
+    .hero-headshot img {
+      width: 100%;
+      display: block;
+      filter: grayscale(20%) contrast(1.05);
+      transition: filter 0.3s;
+    }
+    .hero-headshot:hover img { filter: grayscale(0%) contrast(1.1); }
+
+    .hero-stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1.3rem 1.8rem;
+      min-width: 170px;
+      transition: border-color 0.2s;
+    }
+    .hero-stat:hover { border-color: var(--accent); }
+
+    .hero-stat-num {
+      font-family: var(--ff-display);
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .hero-stat-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* SECTIONS */
+    .section { padding: 6rem 3rem; border-top: 1px solid var(--border); }
+    .section-header { margin-bottom: 4rem; }
+
+    .section-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+    .section-label::after { content: ''; width: 40px; height: 1px; background: var(--accent); }
+
+    h2.section-title {
+      font-family: var(--ff-display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.15;
+    }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 5rem; align-items: start; }
+
+    .about-text p { font-size: 0.86rem; line-height: 1.95; color: var(--muted2); margin-bottom: 1.2rem; }
+
+    .highlight-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: var(--muted2);
+      line-height: 1.6;
+      margin-bottom: 0.7rem;
+    }
+    .highlight-item::before { content: '▸'; color: var(--accent); flex-shrink: 0; margin-top: 0.1rem; }
+
+    .about-right { display: flex; flex-direction: column; gap: 2px; }
+
+    .info-block { background: var(--surface); border: 1px solid var(--border); padding: 1.4rem 1.8rem; transition: border-color 0.2s; }
+    .info-block:hover { border-color: var(--accent); }
+    .info-block-label { font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+    .info-block-value { font-family: var(--ff-display); font-size: 1.1rem; color: var(--text); }
+    .info-block-value span { color: var(--accent); }
+
+    /* EXPERIENCE */
+    .exp-item { display: grid; grid-template-columns: 200px 1fr; gap: 3rem; padding: 2.8rem 0; border-bottom: 1px solid var(--border); }
+    .exp-item:first-child { border-top: 1px solid var(--border); }
+
+    .exp-period { font-size: 0.63rem; letter-spacing: 0.08em; color: var(--accent2); margin-bottom: 0.4rem; }
+    .exp-org { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.2rem; }
+    .exp-location { font-size: 0.62rem; color: var(--muted); opacity: 0.7; }
+
+    .exp-role { font-family: var(--ff-display); font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; line-height: 1.2; }
+    .exp-role span { font-weight: 300; font-style: italic; color: var(--accent); font-size: 1.05rem; }
+
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .exp-bullets li { font-size: 0.82rem; line-height: 1.75; color: var(--muted2); padding-left: 1.2rem; position: relative; }
+    .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); opacity: 0.5; }
+
+    .exp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.2rem; }
+    .tag { font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); border: 1px solid rgba(122,159,196,0.2); padding: 0.22rem 0.7rem; transition: all 0.2s; }
+    .tag:hover { border-color: var(--accent2); background: var(--accent2-dim); }
+    .tag-gold { color: var(--accent); border-color: rgba(200,169,126,0.2); }
+    .tag-gold:hover { border-color: var(--accent); background: var(--accent-dim); }
+
+    /* SKILLS */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2px; }
+
+    .skill-card { background: var(--surface); border: 1px solid var(--border); padding: 2rem 1.8rem; transition: border-color 0.2s, transform 0.2s; position: relative; overflow: hidden; }
+    .skill-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--accent); transition: height 0.3s; }
+    .skill-card:hover { transform: translateY(-3px); }
+    .skill-card:hover::before { height: 100%; }
+
+    .skill-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+    .skill-name { font-family: var(--ff-display); font-size: 1.15rem; font-weight: 600; margin-bottom: 0.6rem; }
+    .skill-desc { font-size: 0.76rem; line-height: 1.75; color: var(--muted); }
+
+    /* EDUCATION */
+    .edu-grid { display: flex; flex-direction: column; gap: 2px; }
+
+    .edu-card { background: var(--surface); border: 1px solid var(--border); padding: 2.4rem 2.8rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; transition: border-color 0.2s; }
+    .edu-card:hover { border-color: var(--accent); }
+
+    .edu-school { font-size: 0.63rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.5rem; }
+    .edu-degree { font-family: var(--ff-display); font-size: 1.5rem; font-weight: 400; margin-bottom: 0.3rem; }
+    .edu-emphasis { font-size: 0.72rem; color: var(--accent); letter-spacing: 0.07em; }
+    .edu-meta { font-size: 0.63rem; color: var(--muted); margin-top: 0.5rem; }
+
+    .edu-badge { text-align: center; border: 1px solid var(--border2); padding: 1.2rem 1.5rem; min-width: 105px; }
+    .edu-badge-main { font-family: var(--ff-display); font-size: 1.5rem; font-weight: 700; color: var(--accent); display: block; line-height: 1; }
+    .edu-badge-sub { font-size: 0.56rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); display: block; margin-top: 0.3rem; }
+
+    /* CONTACT */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .contact-text p { font-size: 0.86rem; line-height: 1.9; color: var(--muted2); margin-bottom: 1rem; }
+
+    .contact-items { display: flex; flex-direction: column; gap: 2px; }
+    .contact-item { display: flex; align-items: center; gap: 1.2rem; padding: 1.1rem 1.4rem; background: var(--surface); border: 1px solid var(--border); text-decoration: none; color: var(--muted2); font-size: 0.78rem; transition: all 0.2s; }
+    .contact-item:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+    .contact-icon { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border2); font-size: 0.9rem; flex-shrink: 0; }
+
+    /* RESUME CARD */
+    .resume-card-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .resume-card-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .resume-meta-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1.2rem 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .resume-meta-block:hover { border-color: var(--accent); }
+
+    .resume-meta-label {
+      font-size: 0.56rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .resume-meta-value {
+      font-family: var(--ff-display);
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+
+    .resume-dl-btn {
+      margin-top: 2px;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    .resume-preview-wrap {
+      position: relative;
+    }
+
+    .resume-preview-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .resume-preview-img {
+      width: 100%;
+      display: block;
+      border: 1px solid var(--border);
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+
+    .resume-preview-img:hover {
+      border-color: var(--accent);
+      box-shadow: 0 12px 60px rgba(200,169,126,0.15);
+      transform: translateY(-4px);
+    }
+
+    @media (max-width: 900px) {
+      .resume-card-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    /* FOOTER */
+    footer { padding: 1.6rem 3rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-size: 0.6rem; letter-spacing: 0.1em; color: var(--muted); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal.d1 { transition-delay: 0.1s; }
+    .reveal.d2 { transition-delay: 0.2s; }
+    .reveal.d3 { transition-delay: 0.3s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 0 1.2rem; }
+      .nav-links a { padding: 0 0.6rem; font-size: 0.56rem; }
+      .hero { padding: 4rem 1.5rem; }
+      .hero::before, .hero-stats { display: none; }
+      .section { padding: 4rem 1.5rem; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.4rem; }
+      .edu-card { grid-template-columns: 1fr; }
+      .resume-page { padding: 1.5rem; }
+      footer { flex-direction: column; gap: 0.4rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">CD IV</div>
+    <ul class="nav-links">
+      <li><a href="#home" id="nav-home" class="active">Home</a></li>
+      <li><a href="#about" id="nav-about">About</a></li>
+      <li><a href="#experience" id="nav-experience">Experience</a></li>
+      <li><a href="#skills" id="nav-skills">Skills</a></li>
+      <li><a href="#education" id="nav-education">Education</a></li>
+      <li><a href="#contact" id="nav-contact">Contact</a></li>
+      <li><a href="#resume" id="nav-resume">Résumé</a></li>
+    </ul>
+  </nav>
+
+  <!-- HOME -->
+  <div class="page active" id="page-home">
+    <div class="hero">
+      <div class="hero-bg-text">CDIV</div>
+      <div class="hero-content">
+        <div class="hero-eyebrow"><div class="hero-dot"></div>Open to Opportunities</div>
+        <h1 class="hero-name">Charles<br><em>DeRosier</em><br>IV</h1>
+        <p class="hero-title">Aviation Professional · Student · Bilingual · Former D-I Athlete</p>
+        <p class="hero-bio">Ramp Agent at JetBlue / LAX. Former Division I football player. Pursuing a B.G.S. with a Psychology emphasis. Bilingual in English and Spanish. Built for high-stakes environments that demand leadership, composure, and genuine people skills.</p>
+        <div class="hero-cta">
+          <button class="btn btn-gold" onclick="showPage('experience'); return false;">View Experience</button>
+          <button class="btn btn-ghost" onclick="showPage('resume'); return false;">View Résumé</button>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-headshot"><img src="headshot.png" alt="Charles DeRosier IV"/></div>
+        <div class="hero-stat"><div class="hero-stat-num">LAX</div><div class="hero-stat-label">JetBlue Airlines</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">D-I</div><div class="hero-stat-label">Former Athlete</div></div>
+        <div class="hero-stat"><div class="hero-stat-num" style="font-size:1.1rem;letter-spacing:-0.01em">Bilingual</div><div class="hero-stat-label">English & Spanish</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">B.G.S</div><div class="hero-stat-label">In Progress</div></div>
+      </div>
+    </div>
+    <footer><p>© 2026 Charles DeRosier IV</p><p>Long Beach, CA</p></footer>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="page" id="page-about">
+    <div class="section">
+      <div class="section-header reveal">
+        <div class="section-label">About Me</div>
+        <h2 class="section-title">Grounded in aviation.<br>Driven by understanding people.</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text reveal d1">
+          <p>I'm Charles DeRosier IV — a ramp agent at Los Angeles International Airport working for JetBlue Airlines. My work demands precision, physical stamina, and seamless teamwork to keep aircraft moving safely and on schedule in one of the country's busiest airports.</p>
+          <p>Before aviation, I competed as a Division I football player — first at Arkansas State University and then at the University of Northern Colorado. That experience instilled discipline, mental toughness, and a team-first mindset that shapes how I approach every challenge.</p>
+          <p>Academically, I've pursued sociology, political science, and psychology across three institutions. I'm genuinely fascinated by human behavior — how people communicate, make decisions, and adapt under pressure. Being bilingual in English and Spanish only deepens my ability to connect with people from all walks of life.</p>
+          <div style="margin-top:1.5rem">
+            <div class="highlight-item">Sun Belt Conference Academic Honor Roll — 2018–2019</div>
+            <div class="highlight-item">City Planning Intern — served government officials, contractors & the public</div>
+            <div class="highlight-item">Balanced Division I athletics with a full academic course load</div>
+            <div class="highlight-item">Experience across aviation, retail, government, and delivery sectors</div>
+          </div>
+        </div>
+        <div class="about-right reveal d2">
+          <div class="info-block"><div class="info-block-label">Location</div><div class="info-block-value">Long Beach, <span>CA</span></div></div>
+          <div class="info-block"><div class="info-block-label">Current Employer</div><div class="info-block-value"><span>JetBlue</span> Airlines</div></div>
+          <div class="info-block"><div class="info-block-label">Airport</div><div class="info-block-value"><span>LAX</span> — Los Angeles</div></div>
+          <div class="info-block"><div class="info-block-label">Languages</div><div class="info-block-value">English <span>&</span> Spanish</div></div>
+          <div class="info-block"><div class="info-block-label">Athletic Background</div><div class="info-block-value">Division <span>I</span> Football</div></div>
+          <div class="info-block"><div class="info-block-label">Education</div><div class="info-block-value">B.G.S. — <span>In Progress</span></div></div>
+          <div class="info-block"><div class="info-block-label">Contact</div><div class="info-block-value" style="font-size:0.9rem"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ec8f88899e839f85899ed8ac858f80839988c28f8381">[email&#160;protected]</a></div></div>
+        </div>
+      </div>
+    </div>
+    <footer><p>© 2026 Charles DeRosier IV</p><p>Long Beach, CA</p></footer>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="page" id="page-experience">
+    <div class="section">
+      <div class="section-header reveal">
+        <div class="section-label">Experience</div>
+        <h2 class="section-title">Where I've worked<br>and what I've built.</h2>
+      </div>
+
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-period">Aug 2022 – Present</div>
+          <div class="exp-org">Costco Wholesale</div>
+          <div class="exp-location">Cypress, California</div>
+        </div>
+        <div>
+          <div class="exp-role">Front End Assistant</div>
+          <ul class="exp-bullets">
+            <li>Identified on-the-job issues, created solutions, and responded with decisions reflecting Costco's Code of Ethics.</li>
+            <li>Assisted members and cashiers, cashiered, maintained front-end cleanliness, stocked merchandise, and retrieved carts.</li>
+            <li>Delivered prompt, courteous member service in one of the highest-volume retail environments in the country.</li>
+          </ul>
+          <div class="exp-tags"><span class="tag">Customer Service</span><span class="tag">Inventory</span><span class="tag">Problem Solving</span><span class="tag">Retail Ops</span></div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-period">Jun 2021 – Jun 2022</div>
+          <div class="exp-org">University of Northern Colorado</div>
+          <div class="exp-location">Greeley, Colorado</div>
+        </div>
+        <div>
+          <div class="exp-role">Division I Student-Athlete <span>— Football</span></div>
+          <ul class="exp-bullets">
+            <li>Recognized as a team leader; built a cohesive Special Teams unit from the ground up.</li>
+            <li>Trained up to 40 hours per week while maintaining a full academic course load.</li>
+            <li>Started the entire season — demonstrated grit, resilience, and performance under adversity.</li>
+          </ul>
+          <div class="exp-tags"><span class="tag tag-gold">Division I</span><span class="tag tag-gold">Leadership</span><span class="tag">Team Building</span><span class="tag">Time Management</span></div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-period">Mar 2020 – Dec 2020</div>
+          <div class="exp-org">Dick's Sporting Goods</div>
+          <div class="exp-location">Cerritos, California</div>
+        </div>
+        <div>
+          <div class="exp-role">Team Sports Associate</div>
+          <ul class="exp-bullets">
+            <li>Provided expert assistance helping customers find sporting equipment tailored to their needs.</li>
+            <li>Unloaded delivery trucks and stocked new merchandise across departments.</li>
+            <li>Operated as a cashier; handled complaints, refunds, and credits professionally.</li>
+          </ul>
+          <div class="exp-tags"><span class="tag">Retail</span><span class="tag">Merchandising</span><span class="tag">Customer Relations</span></div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-period">Aug 2018 – Jun 2020</div>
+          <div class="exp-org">Arkansas State University</div>
+          <div class="exp-location">Jonesboro, Arkansas</div>
+        </div>
+        <div>
+          <div class="exp-role">Division I Student-Athlete <span>— Football</span></div>
+          <ul class="exp-bullets">
+            <li>Exhibited outstanding teamwork and a strong work ethic while fostering team camaraderie.</li>
+            <li>Managed travel, practice, workouts, study hall, and coursework simultaneously.</li>
+            <li>Earned 2018–2019 Sun Belt Conference Academic Honor Roll recognition.</li>
+          </ul>
+          <div class="exp-tags"><span class="tag tag-gold">Academic Honor Roll</span><span class="tag tag-gold">Division I</span><span class="tag">Sun Belt Conference</span></div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-period">Jan 2019 – May 2019</div>
+          <div class="exp-org">City of Jonesboro</div>
+          <div class="exp-location">Jonesboro, Arkansas</div>
+        </div>
+        <div>
+          <div class="exp-role">City Planning Intern</div>
+          <ul class="exp-bullets">
+            <li>Provided professional customer service to city employees, government officials, and contractors.</li>
+            <li>Performed administrative and computer-based tasks in a government setting.</li>
+            <li>Scanned and digitized blueprints for electronic storage and archiving.</li>
+          </ul>
+          <div class="exp-tags"><span class="tag">Government</span><span class="tag">Administration</span><span class="tag">Data Management</span></div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-period">Sep 2019 – Mar 2020</div>
+          <div class="exp-org">Postmates / DoorDash</div>
+          <div class="exp-location">Long Beach / Jonesboro</div>
+        </div>
+        <div>
+          <div class="exp-role">Delivery Driver</div>
+          <ul class="exp-bullets">
+            <li>Provided courier delivery services requiring strong customer service and navigation skills.</li>
+            <li>Managed time and routes efficiently across two platforms simultaneously.</li>
+          </ul>
+          <div class="exp-tags"><span class="tag">Navigation</span><span class="tag">Self-Management</span><span class="tag">Customer Service</span></div>
+        </div>
+      </div>
+
+    </div>
+    <footer><p>© 2026 Charles DeRosier IV</p><p>Long Beach, CA</p></footer>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="page" id="page-skills">
+    <div class="section">
+      <div class="section-header reveal">
+        <div class="section-label">Skills & Strengths</div>
+        <h2 class="section-title">What I bring<br>to every role.</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card reveal"><div class="skill-icon">✈️</div><div class="skill-name">Aviation & Ground Ops</div><p class="skill-desc">Aircraft ground handling, FAA safety protocols, baggage systems, and coordination with flight crews in active airport environments.</p></div>
+        <div class="skill-card reveal d1"><div class="skill-icon">🧠</div><div class="skill-name">Psychology & Behavior</div><p class="skill-desc">Academic grounding in human motivation, interpersonal dynamics, and behavioral analysis across multiple institutions.</p></div>
+        <div class="skill-card reveal d2"><div class="skill-icon">🌐</div><div class="skill-name">Bilingual Communication</div><p class="skill-desc">Biliterate in English and Spanish — able to serve, communicate with, and build rapport across diverse communities.</p></div>
+        <div class="skill-card reveal"><div class="skill-icon">🏈</div><div class="skill-name">Athletic Leadership</div><p class="skill-desc">Forged through Division I football — disciplined, resilient, team-first, and experienced leading under real competitive pressure.</p></div>
+        <div class="skill-card reveal d1"><div class="skill-icon">🤝</div><div class="skill-name">Customer Service</div><p class="skill-desc">Extensive experience delivering exceptional service across retail, government, and logistics environments at high volume.</p></div>
+        <div class="skill-card reveal d2"><div class="skill-icon">🗂️</div><div class="skill-name">Retail & Inventory</div><p class="skill-desc">Front-end operations, stocking, merchandising, cash transactions, and inventory management in high-volume settings.</p></div>
+        <div class="skill-card reveal"><div class="skill-icon">⚡</div><div class="skill-name">Performance Under Pressure</div><p class="skill-desc">Composure and decisive action in fast-paced, high-stakes environments — from the tarmac to the field to the retail floor.</p></div>
+        <div class="skill-card reveal d1"><div class="skill-icon">📅</div><div class="skill-name">Time Management</div><p class="skill-desc">Proven ability to manage athletic commitments, full course loads, and work responsibilities at the same time.</p></div>
+        <div class="skill-card reveal d2"><div class="skill-icon">💻</div><div class="skill-name">Computer & Admin</div><p class="skill-desc">Office and computer tasks, document digitization, and administrative support — demonstrated in a professional government setting.</p></div>
+      </div>
+    </div>
+    <footer><p>© 2026 Charles DeRosier IV</p><p>Long Beach, CA</p></footer>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="page" id="page-education">
+    <div class="section">
+      <div class="section-header reveal">
+        <div class="section-label">Education</div>
+        <h2 class="section-title">Academic journey<br>and credentials.</h2>
+      </div>
+      <div class="edu-grid">
+        <div class="edu-card reveal">
+          <div>
+            <div class="edu-school">University of Northern Colorado</div>
+            <div class="edu-degree">Bachelor of General Studies</div>
+            <div class="edu-emphasis">Psychology Emphasis</div>
+            <div class="edu-meta">Greeley, Colorado · June 2020 – Present</div>
+          </div>
+          <div class="edu-badge"><span class="edu-badge-main">B.G.S.</span><span class="edu-badge-sub">In Progress</span></div>
+        </div>
+        <div class="edu-card reveal d1">
+          <div>
+            <div class="edu-school">Long Beach City College</div>
+            <div class="edu-degree">Associate of Arts — Sociology</div>
+            <div class="edu-meta">Long Beach, California · June 2020 – June 2021</div>
+          </div>
+          <div class="edu-badge"><span class="edu-badge-main">A.A.</span><span class="edu-badge-sub">Sociology</span></div>
+        </div>
+        <div class="edu-card reveal d2">
+          <div>
+            <div class="edu-school">Arkansas State University</div>
+            <div class="edu-degree">Political Science & Psychology</div>
+            <div class="edu-emphasis">Double Major · Sun Belt Conference Academic Honor Roll 2018–2019</div>
+            <div class="edu-meta">Jonesboro, Arkansas · September 2018 – May 2020</div>
+          </div>
+          <div class="edu-badge"><span class="edu-badge-main">🏆</span><span class="edu-badge-sub">Honor Roll</span></div>
+        </div>
+      </div>
+    </div>
+    <footer><p>© 2026 Charles DeRosier IV</p><p>Long Beach, CA</p></footer>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="page" id="page-contact">
+    <div class="section">
+      <div class="section-header reveal">
+        <div class="section-label">Contact</div>
+        <h2 class="section-title">Let's connect<br>and build something.</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-text reveal">
+          <p>I'm open to opportunities in aviation operations, customer-facing leadership roles, psychology-adjacent fields, or anything that leverages bilingual communication and a proven track record of performing under pressure.</p>
+          <p>Based in Long Beach, CA. Available for in-person or remote opportunities.</p>
+          <button class="btn btn-gold" style="margin-top:1.2rem" onclick="showPage('resume'); return false;">View My Résumé →</button>
+        </div>
+        <div class="contact-items reveal d2">
+          <a href="tel:5626067705" class="contact-item"><div class="contact-icon">📞</div><span>(562) 606-7705</span></a>
+          <a href="/cdn-cgi/l/email-protection#dcbfb8b9aeb3afb5b9aee89cb5bfb0b3a9b8f2bfb3b1" class="contact-item"><div class="contact-icon">✉</div><span><span class="__cf_email__" data-cfemail="34575051465b475d514600745d57585b41501a575b59">[email&#160;protected]</span></span></a>
+          <a href="https://www.linkedin.com/in/charles-derosier-iv-4a19a23b0/" target="_blank" class="contact-item"><div class="contact-icon">in</div><span>linkedin.com/in/charles-derosier-iv</span></a>
+          <div class="contact-item"><div class="contact-icon">📍</div><span>Long Beach, California</span></div>
+        </div>
+      </div>
+    </div>
+    <footer><p>© 2026 Charles DeRosier IV</p><p>Long Beach, CA</p></footer>
+  </div>
+
+  <!-- RESUME -->
+  <div class="page" id="page-resume">
+    <div class="section">
+      <div class="section-header reveal">
+        <div class="section-label">Résumé</div>
+        <h2 class="section-title">Download my résumé<br>or preview it below.</h2>
+      </div>
+      <div class="resume-card-layout reveal">
+        <!-- Left: info + download -->
+        <div class="resume-card-info">
+          <div class="resume-meta-block">
+            <div class="resume-meta-label">Name</div>
+            <div class="resume-meta-value">Charles DeRosier IV</div>
+          </div>
+          <div class="resume-meta-block">
+            <div class="resume-meta-label">Format</div>
+            <div class="resume-meta-value">PDF Document</div>
+          </div>
+          <div class="resume-meta-block">
+            <div class="resume-meta-label">Last Updated</div>
+            <div class="resume-meta-value">2026</div>
+          </div>
+          <div class="resume-meta-block">
+            <div class="resume-meta-label">Includes</div>
+            <div class="resume-meta-value">Experience · Education · Skills</div>
+          </div>
+          <a href="Charles_DeRosier_IV_Resume.pdf" download class="btn btn-gold resume-dl-btn">⬇ &nbsp;Download PDF</a>
+          <a href="Charles_DeRosier_IV_Resume.pdf" target="_blank" class="btn btn-ghost resume-dl-btn">↗ &nbsp;Open in New Tab</a>
+        </div>
+        <!-- Right: preview image -->
+        <div class="resume-preview-wrap">
+          <div class="resume-preview-label">Preview</div>
+          <a href="Charles_DeRosier_IV_Resume.pdf" download>
+            <img src="resume-preview.jpg" alt="Resume preview" class="resume-preview-img"/>
+          </a>
+        </div>
+      </div>
+    </div>
+    <footer><p>© 2026 Charles DeRosier IV</p><p>Long Beach, CA</p></footer>
+  </div>
+
+    <script>
+    var pages = ['home','about','experience','skills','education','contact','resume'];
+
+    function showPage(id) {
+      if (pages.indexOf(id) === -1) id = 'home';
+      pages.forEach(function(p) {
+        var pg = document.getElementById('page-' + p);
+        var nv = document.getElementById('nav-' + p);
+        if (pg) pg.classList[p === id ? 'add' : 'remove']('active');
+        if (nv) nv.classList[p === id ? 'add' : 'remove']('active');
+      });
+      window.scrollTo(0, 0);
+      setTimeout(triggerReveals, 60);
+    }
+
+    function triggerReveals() {
+      var items = document.querySelectorAll('.page.active .reveal');
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+      }, { threshold: 0.07 });
+      items.forEach(function(el) { el.classList.remove('visible'); obs.observe(el); });
+    }
+
+    // Nav clicks
+    document.querySelectorAll('.nav-links a').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        var id = this.getAttribute('href').replace('#','');
+        showPage(id);
+      });
+    });
+
+    // Init
+    var initId = (location.hash || '#home').replace('#','');
+    showPage(initId);
+  </script>
+</body>
+</html>
