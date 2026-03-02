@@ -415,29 +415,35 @@
     .statement-block {
       background: var(--surface);
       border: 1px solid var(--border);
-      padding: 2.5rem 3rem;
-      display: grid;
-      grid-template-columns: 60px 1fr;
-      gap: 2rem;
-      transition: border-color 0.2s;
+      border-left: 3px solid var(--border);
+      padding: 2.8rem 3rem;
+      transition: border-color 0.2s, border-left-color 0.2s;
+      max-width: 100%;
     }
-    .statement-block:hover { border-color: var(--accent); }
+    .statement-block:hover { border-color: var(--accent); border-left-color: var(--accent); }
+
+    .statement-block-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.2rem;
+      margin-bottom: 1.4rem;
+    }
 
     .statement-num {
       font-family: var(--ff-display);
-      font-size: 3rem;
+      font-size: 2rem;
       font-weight: 700;
-      color: rgba(200,169,126,0.2);
+      color: rgba(200,169,126,0.25);
       line-height: 1;
-      padding-top: 0.2rem;
+      flex-shrink: 0;
     }
 
     .statement-heading {
       font-family: var(--ff-display);
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: 600;
       color: var(--accent);
-      margin-bottom: 1rem;
+      line-height: 1.2;
     }
 
     .statement-block p {
@@ -445,13 +451,20 @@
       line-height: 1.95;
       color: var(--muted2);
       margin-bottom: 0.8rem;
+      max-width: 860px;
     }
+    .statement-block p:last-child { margin-bottom: 0; }
 
     .course-info-block {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 2px;
       margin-top: 3rem;
+    }
+
+    @media (max-width: 900px) {
+      .course-info-block { grid-template-columns: 1fr 1fr; }
+      .statement-block { padding: 2rem 1.5rem; }
     }
 
     .cib-item {
@@ -1109,22 +1122,19 @@
 
       <div class="statement-grid">
         <div class="statement-block reveal">
-          <div class="statement-num">01</div>
-          <div class="statement-heading">Who I Am</div>
+          <div class="statement-block-header"><div class="statement-num">01</div><div class="statement-heading">Who I Am</div></div>
           <p>My name is Charles DeRosier IV, and I am completing my Bachelor of General Studies with an emphasis in Psychology at the Arkansas State University. I also hold an Associate of Arts in Sociology from Long Beach City College and previously pursued a double major in Political Science and Psychology at Arkansas State University — where I earned a spot on the Sun Belt Conference Academic Honor Roll.</p>
           <p>I currently serve as a Ramp Agent for JetBlue Airlines at Los Angeles International Airport. My professional identity is built on one belief: that understanding people is the foundation of doing any job well.</p>
         </div>
 
         <div class="statement-block reveal d1">
-          <div class="statement-num">02</div>
-          <div class="statement-heading">My Academic & Professional Journey</div>
+          <div class="statement-block-header"><div class="statement-num">02</div><div class="statement-heading">My Academic & Professional Journey</div></div>
           <p>My path to Psychology began in an Introductory Psychology course that had such a lasting impact on my academic journey that I changed my major the following semester. Psychology drew me in because it can genuinely be seen as an interdisciplinary field — overlapping with sport psychology, educational psychology, and most recently, human factors in aviation. As a ramp agent at LAX, I've found that understanding the tendencies and patterns of my coworkers directly creates a safer, more effective work environment.</p>
           <p>Two academic experiences stand out as pivotal: completing PSY 440: Cognition, which expanded my thinking about metacognition and how we think about thinking, and my City Planning internship in Jonesboro where I worked directly with government officials, contractors, and the public. Both deepened my ability to apply psychological insight to real-world, high-stakes contexts.</p>
         </div>
 
         <div class="statement-block reveal d2">
-          <div class="statement-num">03</div>
-          <div class="statement-heading">Career Goals & Contributions</div>
+          <div class="statement-block-header"><div class="statement-num">03</div><div class="statement-heading">Career Goals & Contributions</div></div>
           <p>In the short term, I am focused on completing my final courses at Arkansas State with work I am genuinely proud of, while advancing within JetBlue — where I currently hold a junior lead role. I know how close I am to earning my bachelor's degree and understand the impact it will have on my ability to advance within my own workplace.</p>
           <p>Long term, my goal is to step into human resources or a role involving human relations within the aviation or transportation industry — where my psychology knowledge, operational experience, and bilingual communication skills converge. My degree will mark not just academic achievement, but the full nonlinear journey it took to get here. I want to use everything I've learned to build workplaces where people are genuinely understood and supported.</p>
         </div>
