@@ -45,18 +45,47 @@
       z-index: 9999;
     }
 
+    /* Plane background */
+    .plane-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .plane-bg svg {
+      position: absolute;
+      fill: none;
+      stroke: rgba(200,169,126,0.13);
+      stroke-width: 2;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+
+    .plane-bg .p1 { width: 560px; top: 5%; right: -80px; transform: rotate(-12deg); }
+    .plane-bg .p2 { width: 340px; bottom: 10%; left: -50px; transform: rotate(168deg); stroke: rgba(200,169,126,0.08); }
+    .plane-bg .p3 { width: 220px; top: 52%; right: 18%; transform: rotate(-6deg); stroke: rgba(200,169,126,0.07); }
+
+    nav, .page { position: relative; z-index: 1; }
+
+
     /* NAV */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 200;
+      background: rgba(9,9,11,0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 3rem;
-      height: 64px;
-      background: rgba(9,9,11,0.92);
-      backdrop-filter: blur(16px);
+      height: 48px;
       border-bottom: 1px solid var(--border);
     }
 
@@ -68,16 +97,28 @@
       letter-spacing: 0.03em;
     }
 
+    .nav-logo-sub {
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
     .nav-links {
       display: flex;
       list-style: none;
+      width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding: 0 1rem;
     }
+    .nav-links::-webkit-scrollbar { display: none; }
 
     .nav-links a {
       display: block;
-      padding: 0 1rem;
-      height: 64px;
-      line-height: 64px;
+      padding: 0 0.9rem;
+      height: 40px;
+      line-height: 40px;
       font-size: 0.63rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
@@ -96,7 +137,7 @@
     }
 
     /* PAGES */
-    .page { display: none; min-height: 100vh; padding-top: 64px; }
+    .page { display: none; min-height: 100vh; padding-top: 88px; }
     .page.active { display: block; }
 
     /* HERO */
@@ -368,6 +409,265 @@
     .contact-item:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
     .contact-icon { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border2); font-size: 0.9rem; flex-shrink: 0; }
 
+    /* PERSONAL STATEMENT */
+    .statement-grid { display: flex; flex-direction: column; gap: 2px; margin-bottom: 3rem; }
+
+    .statement-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2.5rem 3rem;
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 2rem;
+      transition: border-color 0.2s;
+    }
+    .statement-block:hover { border-color: var(--accent); }
+
+    .statement-num {
+      font-family: var(--ff-display);
+      font-size: 3rem;
+      font-weight: 700;
+      color: rgba(200,169,126,0.2);
+      line-height: 1;
+      padding-top: 0.2rem;
+    }
+
+    .statement-heading {
+      font-family: var(--ff-display);
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .statement-block p {
+      font-size: 0.87rem;
+      line-height: 1.95;
+      color: var(--muted2);
+      margin-bottom: 0.8rem;
+    }
+
+    .course-info-block {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      margin-top: 3rem;
+    }
+
+    .cib-item {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 1.2rem 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .cib-item:hover { border-color: var(--accent2); }
+
+    .cib-label { font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+    .cib-value { font-size: 0.82rem; color: var(--text); line-height: 1.4; }
+
+    /* ACADEMIC JOURNEY */
+    .academic-emphasis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+
+    .ae-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2rem 1.8rem;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .ae-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--accent); transition: height 0.3s; }
+    .ae-card:hover { transform: translateY(-3px); border-color: var(--border2); }
+    .ae-card:hover::before { height: 100%; }
+
+    .ae-icon { font-size: 1.6rem; margin-bottom: 0.8rem; }
+    .ae-title { font-family: var(--ff-display); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem; color: var(--accent); }
+    .ae-desc { font-size: 0.8rem; line-height: 1.8; color: var(--muted); }
+
+    .connections-block p {
+      font-size: 0.87rem;
+      line-height: 1.95;
+      color: var(--muted2);
+      margin-bottom: 0.8rem;
+      max-width: 860px;
+    }
+
+    .goals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+
+    .goal-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2.2rem;
+      transition: border-color 0.2s;
+    }
+    .goal-card.short:hover { border-color: var(--accent2); }
+    .goal-card.long:hover { border-color: var(--accent); }
+
+    .goal-type { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
+    .goal-card.short .goal-type { color: var(--accent2); }
+
+    .goal-item { display: flex; gap: 1rem; font-size: 0.83rem; line-height: 1.75; color: var(--muted2); margin-bottom: 1rem; }
+    .goal-num { font-family: var(--ff-display); font-size: 1.4rem; font-weight: 700; color: var(--accent); line-height: 1; flex-shrink: 0; }
+    .goal-card.short .goal-num { color: var(--accent2); }
+
+    /* CAREER ACTION PLAN */
+    .cap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+
+    .cap-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2.2rem;
+      transition: border-color 0.2s;
+    }
+    .cap-card:hover { border-color: var(--accent); }
+
+    .cap-icon { font-size: 1.6rem; margin-bottom: 1rem; }
+    .cap-title { font-family: var(--ff-display); font-size: 1.3rem; font-weight: 600; color: var(--accent); margin-bottom: 1.5rem; line-height: 1.2; }
+    .cap-subtitle { font-size: 0.7rem; font-family: var(--ff-mono); font-weight: 300; color: var(--accent2); letter-spacing: 0.1em; margin-top: 0.2rem; }
+
+    .cap-items { display: flex; flex-direction: column; gap: 0.8rem; }
+    .cap-item { display: flex; gap: 0.8rem; font-size: 0.82rem; line-height: 1.75; color: var(--muted2); }
+    .cap-bullet { color: var(--accent); flex-shrink: 0; font-size: 0.9rem; margin-top: 0.15rem; }
+    .cap-item strong { color: var(--text); font-weight: 500; }
+
+    .reflection-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      padding: 2.5rem 3rem;
+      max-width: 900px;
+    }
+    .reflection-block p { font-size: 0.88rem; line-height: 1.95; color: var(--muted2); margin-bottom: 1rem; }
+    .reflection-block p:last-child { margin-bottom: 0; }
+
+    /* RESPONSIVE additions */
+    @media (max-width: 900px) {
+      .statement-block { grid-template-columns: 1fr; gap: 0.5rem; }
+      .statement-num { font-size: 2rem; }
+      .course-info-block { grid-template-columns: 1fr 1fr; }
+      .academic-emphasis { grid-template-columns: 1fr; }
+      .goals-grid, .cap-grid { grid-template-columns: 1fr; }
+    }
+
+    .skill-career { font-size: 0.62rem; letter-spacing: 0.08em; color: var(--accent2); margin-top: 0.8rem; border-top: 1px solid var(--border); padding-top: 0.7rem; }
+
+    /* APPLIED PROBLEM-SOLVING */
+    .problem-intro {
+      max-width: 860px;
+      margin-bottom: 3rem;
+    }
+    .problem-intro p {
+      font-size: 0.88rem;
+      line-height: 1.95;
+      color: var(--muted2);
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .problem-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2.2rem;
+      transition: border-color 0.2s;
+    }
+    .problem-card:hover { border-color: var(--accent); }
+
+    .problem-card-num {
+      font-family: var(--ff-display);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: rgba(91,164,212,0.15);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .problem-card-title {
+      font-family: var(--ff-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .problem-card p {
+      font-size: 0.83rem;
+      line-height: 1.85;
+      color: var(--muted2);
+    }
+
+    .problem-card strong { color: var(--text); font-weight: 500; }
+
+    .problem-bullets {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin: 1rem 0;
+    }
+
+    .problem-bullet {
+      display: flex;
+      gap: 0.8rem;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: var(--muted2);
+    }
+
+    .problem-bullet span { color: var(--accent); flex-shrink: 0; }
+
+    .problem-card em { font-size: 0.75rem; color: var(--muted); }
+
+    @media (max-width: 900px) {
+      .problem-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ELEVATOR PITCH */
+    .pitch-layout-centered {
+      display: flex;
+      justify-content: center;
+    }
+
+    .pitch-video-wrap {
+      width: 100%;
+      max-width: 780px;
+    }
+
+    .pitch-video-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .pitch-video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .pitch-video-container iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .pitch-yt-btn {
+      margin-top: 2px;
+      width: 100%;
+      justify-content: center;
+      text-decoration: none;
+      display: flex;
+    }
+
     /* RESUME CARD */
     .resume-card-layout {
       display: grid;
@@ -470,14 +770,46 @@
 </head>
 <body>
 
+  <!-- Plane background -->
+  <div class="plane-bg">
+    <svg class="p1" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="4,40 116,12 116,40 116,68" />
+      <line x1="116" y1="40" x2="4" y2="40" />
+      <line x1="116" y1="40" x2="88" y2="58" />
+      <line x1="116" y1="40" x2="88" y2="22" />
+    </svg>
+    <svg class="p2" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="4,40 116,12 116,40 116,68" />
+      <line x1="116" y1="40" x2="4" y2="40" />
+      <line x1="116" y1="40" x2="88" y2="58" />
+      <line x1="116" y1="40" x2="88" y2="22" />
+    </svg>
+    <svg class="p3" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="4,40 116,12 116,40 116,68" />
+      <line x1="116" y1="40" x2="4" y2="40" />
+      <line x1="116" y1="40" x2="88" y2="58" />
+      <line x1="116" y1="40" x2="88" y2="22" />
+    </svg>
+  </div>
+
+
+
   <nav>
-    <div class="nav-logo">CD IV</div>
+    <div class="nav-top">
+      <div class="nav-logo">CD IV</div>
+      <div class="nav-logo-sub">Charles DeRosier IV · Portfolio</div>
+    </div>
     <ul class="nav-links">
       <li><a href="#home" id="nav-home" class="active">Home</a></li>
       <li><a href="#about" id="nav-about">About</a></li>
+      <li><a href="#statement" id="nav-statement">Statement</a></li>
       <li><a href="#experience" id="nav-experience">Experience</a></li>
       <li><a href="#skills" id="nav-skills">Skills</a></li>
       <li><a href="#education" id="nav-education">Education</a></li>
+      <li><a href="#academic" id="nav-academic">Academic</a></li>
+      <li><a href="#careerplan" id="nav-careerplan">Career Plan</a></li>
+      <li><a href="#pitch" id="nav-pitch">Pitch</a></li>
+      <li><a href="#problem" id="nav-problem">Problem-Solving</a></li>
       <li><a href="#contact" id="nav-contact">Contact</a></li>
       <li><a href="#resume" id="nav-resume">Résumé</a></li>
     </ul>
@@ -518,7 +850,7 @@
       <div class="about-grid">
         <div class="about-text reveal d1">
           <p>I'm Charles DeRosier IV — a ramp agent at Los Angeles International Airport working for JetBlue Airlines. My work demands precision, physical stamina, and seamless teamwork to keep aircraft moving safely and on schedule in one of the country's busiest airports.</p>
-          <p>Before aviation, I competed as a Division I football player — first at Arkansas State University and then at the University of Northern Colorado. That experience instilled discipline, mental toughness, and a team-first mindset that shapes how I approach every challenge.</p>
+          <p>Before aviation, I competed as a Division I football player — first at Arkansas State University and then at the Arkansas State University. That experience instilled discipline, mental toughness, and a team-first mindset that shapes how I approach every challenge.</p>
           <p>Academically, I've pursued sociology, political science, and psychology across three institutions. I'm genuinely fascinated by human behavior — how people communicate, make decisions, and adapt under pressure. Being bilingual in English and Spanish only deepens my ability to connect with people from all walks of life.</p>
           <div style="margin-top:1.5rem">
             <div class="highlight-item">Sun Belt Conference Academic Honor Roll — 2018–2019</div>
@@ -569,7 +901,7 @@
       <div class="exp-item reveal">
         <div>
           <div class="exp-period">Jun 2021 – Jun 2022</div>
-          <div class="exp-org">University of Northern Colorado</div>
+          <div class="exp-org">Arkansas State University</div>
           <div class="exp-location">Greeley, Colorado</div>
         </div>
         <div>
@@ -658,22 +990,73 @@
   <div class="page" id="page-skills">
     <div class="section">
       <div class="section-header reveal">
-        <div class="section-label">Skills & Strengths</div>
-        <h2 class="section-title">What I bring<br>to every role.</h2>
+        <div class="section-label">IDS 4013 · Skills & Evidence of Learning</div>
+        <h2 class="section-title">10 Transferable Skills<br>mapped to career fields.</h2>
       </div>
       <div class="skills-grid">
-        <div class="skill-card reveal"><div class="skill-icon">✈️</div><div class="skill-name">Aviation & Ground Ops</div><p class="skill-desc">Aircraft ground handling, FAA safety protocols, baggage systems, and coordination with flight crews in active airport environments.</p></div>
-        <div class="skill-card reveal d1"><div class="skill-icon">🧠</div><div class="skill-name">Psychology & Behavior</div><p class="skill-desc">Academic grounding in human motivation, interpersonal dynamics, and behavioral analysis across multiple institutions.</p></div>
-        <div class="skill-card reveal d2"><div class="skill-icon">🌐</div><div class="skill-name">Bilingual Communication</div><p class="skill-desc">Biliterate in English and Spanish — able to serve, communicate with, and build rapport across diverse communities.</p></div>
-        <div class="skill-card reveal"><div class="skill-icon">🏈</div><div class="skill-name">Athletic Leadership</div><p class="skill-desc">Forged through Division I football — disciplined, resilient, team-first, and experienced leading under real competitive pressure.</p></div>
-        <div class="skill-card reveal d1"><div class="skill-icon">🤝</div><div class="skill-name">Customer Service</div><p class="skill-desc">Extensive experience delivering exceptional service across retail, government, and logistics environments at high volume.</p></div>
-        <div class="skill-card reveal d2"><div class="skill-icon">🗂️</div><div class="skill-name">Retail & Inventory</div><p class="skill-desc">Front-end operations, stocking, merchandising, cash transactions, and inventory management in high-volume settings.</p></div>
-        <div class="skill-card reveal"><div class="skill-icon">⚡</div><div class="skill-name">Performance Under Pressure</div><p class="skill-desc">Composure and decisive action in fast-paced, high-stakes environments — from the tarmac to the field to the retail floor.</p></div>
-        <div class="skill-card reveal d1"><div class="skill-icon">📅</div><div class="skill-name">Time Management</div><p class="skill-desc">Proven ability to manage athletic commitments, full course loads, and work responsibilities at the same time.</p></div>
-        <div class="skill-card reveal d2"><div class="skill-icon">💻</div><div class="skill-name">Computer & Admin</div><p class="skill-desc">Office and computer tasks, document digitization, and administrative support — demonstrated in a professional government setting.</p></div>
+        <div class="skill-card reveal">
+          <div class="skill-icon">🔄</div>
+          <div class="skill-name">Adaptability</div>
+          <p class="skill-desc">Navigated multiple institutions, roles, and environments — from D-I athletics to airport operations — while consistently performing under evolving conditions.</p>
+          <div class="skill-career">→ Project Management · Tech Support · Aviation Ops</div>
+        </div>
+        <div class="skill-card reveal d1">
+          <div class="skill-icon">🧠</div>
+          <div class="skill-name">Critical Thinking</div>
+          <p class="skill-desc">Developed through coursework in PSY 440: Cognition and human development; applied daily when analyzing safety protocols and team dynamics on the ramp.</p>
+          <div class="skill-career">→ Data & Market Research Analysis · HR · Management</div>
+        </div>
+        <div class="skill-card reveal d2">
+          <div class="skill-icon">🌐</div>
+          <div class="skill-name">Fluency in Spanish</div>
+          <p class="skill-desc">Biliterate in English and Spanish — able to communicate, instruct, and build trust with diverse colleagues, customers, and stakeholders.</p>
+          <div class="skill-career">→ Spanish Teacher · Court Interpreter · Sales</div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-icon">🤝</div>
+          <div class="skill-name">Collaborative Skills</div>
+          <p class="skill-desc">Honed through Division I football and JetBlue team operations — skilled at integrating into high-performing groups quickly and contributing meaningfully.</p>
+          <div class="skill-career">→ Product Development · Operations · HR</div>
+        </div>
+        <div class="skill-card reveal d1">
+          <div class="skill-icon">⚙️</div>
+          <div class="skill-name">Operational Versatility</div>
+          <p class="skill-desc">Experience across aviation, retail, government, logistics, and food delivery — able to transition between operational contexts with speed and competence.</p>
+          <div class="skill-career">→ Warehouse & Logistics Management · Aviation</div>
+        </div>
+        <div class="skill-card reveal d2">
+          <div class="skill-icon">📋</div>
+          <div class="skill-name">Team Coordination</div>
+          <p class="skill-desc">Led Special Teams units at the D-I level and coordinates ramp crews at LAX — experienced in aligning people, timing, and tasks in real time.</p>
+          <div class="skill-career">→ Sports Coaching · Crew Supervisor Roles</div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-icon">🛠️</div>
+          <div class="skill-name">Technical Dexterity</div>
+          <p class="skill-desc">Skilled in operating ground support equipment, handling cargo systems, and managing physical tasks that require precision and safety awareness.</p>
+          <div class="skill-career">→ Heavy Equipment Operator · Ground Ops</div>
+        </div>
+        <div class="skill-card reveal d1">
+          <div class="skill-icon">⚖️</div>
+          <div class="skill-name">Conflict Resolution</div>
+          <p class="skill-desc">Psychology coursework and frontline service roles have built strong skills in de-escalation, active listening, and fair problem resolution.</p>
+          <div class="skill-career">→ Customer Service · Human Resources</div>
+        </div>
+        <div class="skill-card reveal d2">
+          <div class="skill-icon">💻</div>
+          <div class="skill-name">Technological Literacy</div>
+          <p class="skill-desc">Comfortable with computer systems, digital record management, and operational software — demonstrated during City Planning internship and airport operations.</p>
+          <div class="skill-career">→ IT Specialist · Business Operations Analysis</div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-icon">🚨</div>
+          <div class="skill-name">Crisis Management</div>
+          <p class="skill-desc">Trained to respond calmly and decisively under pressure — whether managing aircraft ground incidents, retail escalations, or high-stakes athletic moments.</p>
+          <div class="skill-career">→ Emergency Management Coordinator · Safety Liaison</div>
+        </div>
       </div>
     </div>
-    <footer><p>© 2026 Charles DeRosier IV</p><p>Long Beach, CA</p></footer>
+    <footer><p>© 2026 Charles DeRosier IV</p><p>IDS 4013 · Arkansas State University</p></footer>
   </div>
 
   <!-- EDUCATION -->
@@ -686,7 +1069,7 @@
       <div class="edu-grid">
         <div class="edu-card reveal">
           <div>
-            <div class="edu-school">University of Northern Colorado</div>
+            <div class="edu-school">Arkansas State University</div>
             <div class="edu-degree">Bachelor of General Studies</div>
             <div class="edu-emphasis">Psychology Emphasis</div>
             <div class="edu-meta">Greeley, Colorado · June 2020 – Present</div>
@@ -715,6 +1098,216 @@
     <footer><p>© 2026 Charles DeRosier IV</p><p>Long Beach, CA</p></footer>
   </div>
 
+
+  <!-- PERSONAL STATEMENT -->
+  <div class="page" id="page-statement">
+    <div class="section">
+      <div class="section-header reveal">
+        <div class="section-label">IDS 4013 · Personal Statement</div>
+        <h2 class="section-title">Who I am &<br>where I'm going.</h2>
+      </div>
+
+      <div class="statement-grid">
+        <div class="statement-block reveal">
+          <div class="statement-num">01</div>
+          <div class="statement-heading">Who I Am</div>
+          <p>My name is Charles DeRosier IV, and I am completing my Bachelor of General Studies with an emphasis in Psychology at the Arkansas State University. I also hold an Associate of Arts in Sociology from Long Beach City College and previously pursued a double major in Political Science and Psychology at Arkansas State University — where I earned a spot on the Sun Belt Conference Academic Honor Roll.</p>
+          <p>I currently serve as a Ramp Agent for JetBlue Airlines at Los Angeles International Airport. My professional identity is built on one belief: that understanding people is the foundation of doing any job well.</p>
+        </div>
+
+        <div class="statement-block reveal d1">
+          <div class="statement-num">02</div>
+          <div class="statement-heading">My Academic & Professional Journey</div>
+          <p>My path to Psychology began in an Introductory Psychology course that had such a lasting impact on my academic journey that I changed my major the following semester. Psychology drew me in because it can genuinely be seen as an interdisciplinary field — overlapping with sport psychology, educational psychology, and most recently, human factors in aviation. As a ramp agent at LAX, I've found that understanding the tendencies and patterns of my coworkers directly creates a safer, more effective work environment.</p>
+          <p>Two academic experiences stand out as pivotal: completing PSY 440: Cognition, which expanded my thinking about metacognition and how we think about thinking, and my City Planning internship in Jonesboro where I worked directly with government officials, contractors, and the public. Both deepened my ability to apply psychological insight to real-world, high-stakes contexts.</p>
+        </div>
+
+        <div class="statement-block reveal d2">
+          <div class="statement-num">03</div>
+          <div class="statement-heading">Career Goals & Contributions</div>
+          <p>In the short term, I am focused on completing my final courses at Arkansas State with work I am genuinely proud of, while advancing within JetBlue — where I currently hold a junior lead role. I know how close I am to earning my bachelor's degree and understand the impact it will have on my ability to advance within my own workplace.</p>
+          <p>Long term, my goal is to step into human resources or a role involving human relations within the aviation or transportation industry — where my psychology knowledge, operational experience, and bilingual communication skills converge. My degree will mark not just academic achievement, but the full nonlinear journey it took to get here. I want to use everything I've learned to build workplaces where people are genuinely understood and supported.</p>
+        </div>
+      </div>
+
+      <div class="course-info-block reveal">
+        <div class="cib-item"><div class="cib-label">Course</div><div class="cib-value">IDS 4013: Seminar in Professional Development</div></div>
+        <div class="cib-item"><div class="cib-label">Instructor</div><div class="cib-value">Dr. Shaq Renelique</div></div>
+        <div class="cib-item"><div class="cib-label">Degree Program</div><div class="cib-value">Bachelor of General Studies</div></div>
+        <div class="cib-item"><div class="cib-label">Emphasis Area</div><div class="cib-value">Psychology</div></div>
+      </div>
+    </div>
+    <footer><p>© 2026 Charles DeRosier IV</p><p>IDS 4013 · Arkansas State University</p></footer>
+  </div>
+
+  <!-- ACADEMIC JOURNEY -->
+  <div class="page" id="page-academic">
+    <div class="section">
+      <div class="section-header reveal">
+        <div class="section-label">IDS 4013 · Academic Journey</div>
+        <h2 class="section-title">Emphasis areas,<br>coursework & connections.</h2>
+      </div>
+
+      <div class="academic-emphasis reveal">
+        <div class="ae-card">
+          <div class="ae-icon">🧠</div>
+          <div class="ae-title">Psychology</div>
+          <p class="ae-desc">My psychology emphasis began with an Intro to Psychology course that sparked an immediate major change. From sport psychology to PSY 440: Cognition to human development, I've explored psychology as a deeply interdisciplinary field. Most recently, I've become fascinated by human factors in aviation — directly connecting my studies to my daily work as a ramp agent at LAX.</p>
+        </div>
+        <div class="ae-card">
+          <div class="ae-icon">🌍</div>
+          <div class="ae-title">Sociology</div>
+          <p class="ae-desc">After the pandemic, I moved home and earned my A.A. in Sociology at Long Beach City College. Sociology expanded my lens from the individual to the structural — helping me understand how institutions, culture, and environment shape behavior. This directly complements my psychology emphasis and enriches my understanding of workplace dynamics, team culture, and human relations in high-pressure industries.</p>
+        </div>
+        <div class="ae-card">
+          <div class="ae-icon">🏛️</div>
+          <div class="ae-title">Political Science</div>
+          <p class="ae-desc">Beginning at Arkansas State, I pursued a double major in Political Science and Psychology — earning a place on the Sun Belt Conference Academic Honor Roll. Political Science sharpened my ability to analyze power structures, institutional policies, and organizational behavior. These skills translate directly into understanding how aviation regulations, HR policies, and corporate hierarchies function and evolve.</p>
+        </div>
+      </div>
+
+      <div class="section-header reveal" style="margin-top:4rem">
+        <div class="section-label">Interdisciplinary Connections</div>
+      </div>
+      <div class="connections-block reveal">
+        <p>Psychology itself is an inherently interdisciplinary field — and my academic journey reflects that. Sport psychology connected my athletic background to behavioral science. Sociology gave me structural context for individual behavior. Human development courses, including a project on how humans age and think, gave me tools to understand lifecourse patterns in the workplace. And my coursework on cognition (PSY 440) helped me think more broadly about how thinking itself works — a meta-skill that applies everywhere.</p>
+        <p>The value of this multidisciplinary approach becomes clearest in aviation. Understanding human factors — how fatigue, stress, communication breakdowns, and team psychology affect safety outcomes — requires exactly the combination of psychology, behavioral science, and systems thinking that my degree provides. This is not just academic; I apply it every shift at LAX.</p>
+      </div>
+
+      <div class="section-header reveal" style="margin-top:4rem">
+        <div class="section-label">Goals Alignment</div>
+      </div>
+      <div class="goals-grid reveal">
+        <div class="goal-card short">
+          <div class="goal-type">Short-Term Academic Goals</div>
+          <div class="goal-item"><span class="goal-num">1</span>Complete the B.G.S. degree with a strong GPA, demonstrating that academic excellence and full-time work are not mutually exclusive.</div>
+          <div class="goal-item"><span class="goal-num">2</span>Develop a research-backed applied problem-solving project that bridges Psychology and aviation operations or workplace culture.</div>
+        </div>
+        <div class="goal-card long">
+          <div class="goal-type">Long-Term Career Goals</div>
+          <div class="goal-item"><span class="goal-num">1</span>Transition into an HR, organizational behavior, or operations management role within the aviation or transportation industry.</div>
+          <div class="goal-item"><span class="goal-num">2</span>Use interdisciplinary training to build more equitable, psychologically safe workplace environments — particularly for frontline workers in high-stress industries.</div>
+        </div>
+      </div>
+    </div>
+    <footer><p>© 2026 Charles DeRosier IV</p><p>IDS 4013 · Arkansas State University</p></footer>
+  </div>
+
+  <!-- CAREER ACTION PLAN -->
+  <div class="page" id="page-careerplan">
+    <div class="section">
+      <div class="section-header reveal">
+        <div class="section-label">IDS 4013 · Career Action Plan</div>
+        <h2 class="section-title">Where I'm headed<br>and how I'll get there.</h2>
+      </div>
+
+      <div class="cap-grid">
+        <div class="cap-card reveal">
+          <div class="cap-icon">⚡</div>
+          <div class="cap-title">Short-Term Goals<div class="cap-subtitle">Next 6–12 Months</div></div>
+          <div class="cap-items">
+            <div class="cap-item"><span class="cap-bullet">→</span>Complete remaining B.G.S. coursework and graduate from the Arkansas State University.</div>
+            <div class="cap-item"><span class="cap-bullet">→</span>Pursue a supervisory or lead ramp agent role at JetBlue to build formal management experience.</div>
+            <div class="cap-item"><span class="cap-bullet">→</span>Obtain an FAA Ground Operations or aviation safety certification to strengthen industry credentials.</div>
+            <div class="cap-item"><span class="cap-bullet">→</span>Build a professional network in HR and organizational development through LinkedIn and industry events.</div>
+          </div>
+        </div>
+
+        <div class="cap-card reveal d1">
+          <div class="cap-icon">🎯</div>
+          <div class="cap-title">Long-Term Goals<div class="cap-subtitle">3–5 Years</div></div>
+          <div class="cap-items">
+            <div class="cap-item"><span class="cap-bullet">→</span>Transition into a Human Resources or Organizational Behavior role within the aviation or transportation sector.</div>
+            <div class="cap-item"><span class="cap-bullet">→</span>Leverage bilingual communication skills to serve as a bridge between English and Spanish-speaking workforces.</div>
+            <div class="cap-item"><span class="cap-bullet">→</span>Pursue a graduate degree in Industrial-Organizational Psychology or Human Resources Management.</div>
+            <div class="cap-item"><span class="cap-bullet">→</span>Design and implement employee wellness or psychological safety programs for frontline aviation workers.</div>
+          </div>
+        </div>
+
+        <div class="cap-card reveal d2">
+          <div class="cap-icon">🤝</div>
+          <div class="cap-title">Networking Strategy</div>
+          <div class="cap-items">
+            <div class="cap-item"><span class="cap-bullet">→</span>Actively engage on LinkedIn with HR professionals, aviation operations leaders, and I-O psychology practitioners.</div>
+            <div class="cap-item"><span class="cap-bullet">→</span>Attend aviation industry conferences and UNC alumni networking events.</div>
+            <div class="cap-item"><span class="cap-bullet">→</span>Seek mentorship from professionals in HR or operations management at JetBlue or affiliated companies.</div>
+          </div>
+        </div>
+
+        <div class="cap-card reveal">
+          <div class="cap-icon">📈</div>
+          <div class="cap-title">Skills Still Needed</div>
+          <div class="cap-items">
+            <div class="cap-item"><span class="cap-bullet">→</span><strong>HR software & HRIS systems</strong> — will pursue through online certifications (SHRM, LinkedIn Learning).</div>
+            <div class="cap-item"><span class="cap-bullet">→</span><strong>Data analysis for behavioral research</strong> — plan to complete a statistics or data literacy course.</div>
+            <div class="cap-item"><span class="cap-bullet">→</span><strong>Formal public speaking</strong> — will seek opportunities to present in professional or academic settings.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-header reveal" style="margin-top:4rem">
+        <div class="section-label">Final Reflection</div>
+      </div>
+      <div class="reflection-block reveal">
+        <p>My academic journey has not been linear like most — but psychology has been an underlying thread throughout every stop. What I've learned through persistence, relocation, and continued commitment to finishing my degree is that adaptability is not just a skill on a résumé — it is the lived evidence of what I'm capable of. I selected adaptability as my strongest skill because it best reflects both the academic hurdles I've overcome and the demands of my current role at the airport, where I adhere to constantly evolving safety protocols.</p>
+        <p>One of the most important takeaways I'm carrying forward is the value of intentionality — especially when building my professional narrative. Whether on a résumé, in an interview, or through this portfolio, stating skills is not enough. I must describe them specifically, with concrete examples that demonstrate real competency. My coursework in IDS 4013 reinforced this through every assignment, from the Skills Inventory to the Applied Problem-Solving Project.</p>
+        <p>As I enter my final courses, I want to produce work that genuinely fascinates me — not just satisfies a requirement. My degree will mark the journey as much as the destination. With my bachelor's in hand, paired with frontline aviation experience, bilingual communication, and a psychology foundation, I am confident in my ability to step into human relations roles and make an immediate, meaningful impact.</p>
+      </div>
+    </div>
+    <footer><p>© 2026 Charles DeRosier IV</p><p>IDS 4013 · Arkansas State University</p></footer>
+  </div>
+
+
+  <!-- APPLIED PROBLEM-SOLVING -->
+  <div class="page" id="page-problem">
+    <div class="section">
+      <div class="section-header reveal">
+        <div class="section-label">IDS 4013 · Applied Problem-Solving Project</div>
+        <h2 class="section-title">Mental Health &<br>Psychological Safety<br>in Aviation.</h2>
+      </div>
+
+      <div class="problem-intro reveal">
+        <p>The aviation industry operates at the intersection of extreme physical demand, shift work, high-stakes safety responsibility, and often — limited psychological support. Frontline workers like ramp agents, ground crew, and cabin staff face chronic stress, fatigue, and interpersonal conflict with few formal outlets. I selected this problem because I live it every day at LAX, and my psychology emphasis gives me a unique lens to address it.</p>
+      </div>
+
+      <div class="problem-grid">
+        <div class="problem-card reveal">
+          <div class="problem-card-num">01</div>
+          <div class="problem-card-title">The Problem</div>
+          <p>Workforce mental health and psychological safety among frontline aviation workers is widely underaddressed. High turnover, safety incidents linked to human factors, and a culture that often discourages vulnerability create environments where workers are physically present but psychologically depleted — increasing risk for everyone.</p>
+        </div>
+
+        <div class="problem-card reveal d1">
+          <div class="problem-card-num">02</div>
+          <div class="problem-card-title">Connection to Emphasis Areas</div>
+          <p><strong>Psychology:</strong> Human factors in aviation, stress and cognition, team communication patterns, and burnout research all directly inform this problem. My coursework in PSY 440 and human development provides the academic foundation to analyze it rigorously.</p>
+          <p style="margin-top:0.8rem"><strong>Sociology:</strong> Organizational culture, shift-work inequality, and the structural conditions that normalize overwork in aviation are sociological problems requiring systemic — not just individual — solutions.</p>
+          <p style="margin-top:0.8rem"><strong>Political Science:</strong> FAA regulations, labor policy, and corporate HR structures govern how (or whether) mental health resources reach frontline workers. Policy literacy is essential to propose realistic change.</p>
+        </div>
+
+        <div class="problem-card reveal d2">
+          <div class="problem-card-num">03</div>
+          <div class="problem-card-title">Proposed Approach</div>
+          <p>Drawing on my psychology training, aviation experience, and bilingual communication skills, I propose a peer-support and psychological safety program for frontline airport workers that includes:</p>
+          <div class="problem-bullets">
+            <div class="problem-bullet"><span>→</span>Trained peer advocates embedded within ground operations crews</div>
+            <div class="problem-bullet"><span>→</span>Bilingual mental health resources for Spanish-speaking workforce members</div>
+            <div class="problem-bullet"><span>→</span>Structured team debriefs after high-stress incidents (modeled on aviation CRM principles)</div>
+            <div class="problem-bullet"><span>→</span>Partnership with airline HR departments and Employee Assistance Programs (EAPs)</div>
+          </div>
+          <p style="margin-top:1rem"><em>Potential collaborators: JetBlue HR, FAA Human Factors Division, SHRM, university psychology departments.</em></p>
+        </div>
+
+        <div class="problem-card reveal">
+          <div class="problem-card-num">04</div>
+          <div class="problem-card-title">Impact Statement</div>
+          <p>A psychologically safer aviation workforce benefits everyone — workers, passengers, and airlines. Reduced burnout means fewer human-error incidents. Better communication means safer ramp operations. Inclusive, bilingual resources mean broader reach across the diverse workforce that keeps major airports like LAX running. The interdisciplinary approach — combining psychology, sociology, and policy — is precisely what makes this solution more than just a wellness initiative. It's a systems-level intervention.</p>
+        </div>
+      </div>
+    </div>
+    <footer><p>© 2026 Charles DeRosier IV</p><p>IDS 4013 · Arkansas State University</p></footer>
+  </div>
+
   <!-- CONTACT -->
   <div class="page" id="page-contact">
     <div class="section">
@@ -729,7 +1322,7 @@
           <button class="btn btn-gold" style="margin-top:1.2rem" onclick="showPage('resume'); return false;">View My Résumé →</button>
         </div>
         <div class="contact-items reveal d2">
-          <a href="tel:5626067705" class="contact-item"><div class="contact-icon">📞</div><span>(562) 606-7705</span></a>
+          <a href="https://www.instagram.com/charles.derosier.iv" target="_blank" class="contact-item"><div class="contact-icon">📸</div><span>@charles.derosier.iv</span></a>
           <a href="/cdn-cgi/l/email-protection#dcbfb8b9aeb3afb5b9aee89cb5bfb0b3a9b8f2bfb3b1" class="contact-item"><div class="contact-icon">✉</div><span><span class="__cf_email__" data-cfemail="34575051465b475d514600745d57585b41501a575b59">[email&#160;protected]</span></span></a>
           <a href="https://www.linkedin.com/in/charles-derosier-iv-4a19a23b0/" target="_blank" class="contact-item"><div class="contact-icon">in</div><span>linkedin.com/in/charles-derosier-iv</span></a>
           <div class="contact-item"><div class="contact-icon">📍</div><span>Long Beach, California</span></div>
@@ -737,6 +1330,33 @@
       </div>
     </div>
     <footer><p>© 2026 Charles DeRosier IV</p><p>Long Beach, CA</p></footer>
+  </div>
+
+  <!-- ELEVATOR PITCH -->
+  <div class="page" id="page-pitch">
+    <div class="section">
+      <div class="section-header reveal">
+        <div class="section-label">IDS 4013 · Professional Development</div>
+        <h2 class="section-title">60-Second<br>Elevator Pitch</h2>
+      </div>
+
+      <div class="pitch-layout-centered">
+        <div class="pitch-video-wrap reveal">
+          <div class="pitch-video-label">Watch the Pitch</div>
+          <div class="pitch-video-container">
+            <iframe
+              src="https://www.youtube.com/embed/9OPhBHnWrj4"
+              title="Charles DeRosier IV — Elevator Pitch"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <a href="https://youtu.be/9OPhBHnWrj4" target="_blank" class="btn btn-ghost pitch-yt-btn">&#8599;&nbsp; Watch on YouTube</a>
+        </div>
+      </div>
+    </div>
+    <footer><p>© 2026 Charles DeRosier IV</p><p>IDS 4013 · Arkansas State University</p></footer>
   </div>
 
   <!-- RESUME -->
@@ -781,7 +1401,7 @@
   </div>
 
     <script>
-    var pages = ['home','about','experience','skills','education','contact','resume'];
+    var pages = ['home','about','statement','experience','skills','education','academic','careerplan','pitch','problem','contact','resume'];
 
     function showPage(id) {
       if (pages.indexOf(id) === -1) id = 'home';
