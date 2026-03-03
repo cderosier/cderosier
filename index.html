@@ -637,6 +637,143 @@
       .problem-grid { grid-template-columns: 1fr; }
     }
 
+    /* COVER LETTER */
+    .coverletter-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .coverletter-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--accent);
+      padding: 4rem 5rem;
+      max-width: 780px;
+      width: 100%;
+    }
+
+    .coverletter-header {
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cl-name {
+      font-family: var(--ff-display);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .cl-contact {
+      font-size: 0.75rem;
+      color: var(--muted2);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.3rem;
+    }
+
+    .cl-date {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 1rem;
+    }
+
+    .cl-addressee {
+      margin-bottom: 2rem;
+    }
+
+    .cl-company {
+      font-family: var(--ff-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0.2rem;
+    }
+
+    .cl-re {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--muted2);
+      margin-bottom: 1.5rem;
+    }
+
+    .cl-salutation {
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+
+    .cl-body p {
+      font-size: 0.88rem;
+      line-height: 1.95;
+      color: var(--muted2);
+      margin-bottom: 1.2rem;
+    }
+
+    .cl-list {
+      list-style: none;
+      margin: 0.5rem 0 1.2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .cl-list li {
+      font-size: 0.85rem;
+      color: var(--muted2);
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .cl-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      opacity: 0.6;
+    }
+
+    .cl-closing {
+      margin-top: 2rem;
+      font-size: 0.88rem;
+      color: var(--muted2);
+      line-height: 2;
+    }
+
+    .cl-sig {
+      font-family: var(--ff-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .coverletter-card { padding: 2.5rem 1.8rem; }
+    }
+
+    /* Problem solving refs */
+    .problem-refs {
+      margin-top: 1.5rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .problem-ref-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .problem-ref {
+      font-size: 0.75rem;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
     /* ELEVATOR PITCH */
     .pitch-layout-centered {
       display: flex;
@@ -823,6 +960,7 @@
       <li><a href="#careerplan" id="nav-careerplan">Career Plan</a></li>
       <li><a href="#pitch" id="nav-pitch">Pitch</a></li>
       <li><a href="#problem" id="nav-problem">Problem-Solving</a></li>
+      <li><a href="#coverletter" id="nav-coverletter">Cover Letter</a></li>
       <li><a href="#contact" id="nav-contact">Contact</a></li>
       <li><a href="#resume" id="nav-resume">Résumé</a></li>
     </ul>
@@ -1273,45 +1411,90 @@
     <div class="section">
       <div class="section-header reveal">
         <div class="section-label">IDS 4013 · Applied Problem-Solving Project</div>
-        <h2 class="section-title">Mental Health &<br>Psychological Safety<br>in Aviation.</h2>
+        <h2 class="section-title">Sustainable Aviation Fuel:<br>Improving Air Quality<br>at the Ground Level.</h2>
       </div>
 
       <div class="problem-intro reveal">
-        <p>The aviation industry operates at the intersection of extreme physical demand, shift work, high-stakes safety responsibility, and often — limited psychological support. Frontline workers like ramp agents, ground crew, and cabin staff face chronic stress, fatigue, and interpersonal conflict with few formal outlets. I selected this problem because I live it every day at LAX, and my psychology emphasis gives me a unique lens to address it.</p>
+        <p>Implementing Sustainable Aviation Fuel (SAF) in the aviation industry results in the largest measurable improvement in air quality for communities surrounding airports and for airline employees during ground operations. As a current ramp agent at LAX — one of the busiest airports in the country — I am exposed to aircraft exhaust daily. This problem is not abstract for me. I chose it because it connects directly to my own long-term health, the health of my coworkers, and the future of the industry I work in.</p>
       </div>
 
       <div class="problem-grid">
         <div class="problem-card reveal">
           <div class="problem-card-num">01</div>
           <div class="problem-card-title">The Problem</div>
-          <p>Workforce mental health and psychological safety among frontline aviation workers is widely underaddressed. High turnover, safety incidents linked to human factors, and a culture that often discourages vulnerability create environments where workers are physically present but psychologically depleted — increasing risk for everyone.</p>
+          <p>Traditional jet fuel releases chemical compounds that degrade air quality for airport workers and surrounding communities. Most people — including pilots and ground crews — are aware of these compounds and their effects. On a personal level, I feel it is significant to my own health and those around me to pursue long-term solutions. The biggest barrier to SAF adoption is cost: sustainable aviation fuel currently runs 2–5 times the price of traditional jet fuel, and accounts for only 1% of global jet fuel production — making a marginal dent in overall carbon emissions.</p>
         </div>
 
         <div class="problem-card reveal d1">
           <div class="problem-card-num">02</div>
           <div class="problem-card-title">Connection to Emphasis Areas</div>
-          <p><strong>Psychology:</strong> Human factors in aviation, stress and cognition, team communication patterns, and burnout research all directly inform this problem. My coursework in PSY 440 and human development provides the academic foundation to analyze it rigorously.</p>
-          <p style="margin-top:0.8rem"><strong>Sociology:</strong> Organizational culture, shift-work inequality, and the structural conditions that normalize overwork in aviation are sociological problems requiring systemic — not just individual — solutions.</p>
-          <p style="margin-top:0.8rem"><strong>Political Science:</strong> FAA regulations, labor policy, and corporate HR structures govern how (or whether) mental health resources reach frontline workers. Policy literacy is essential to propose realistic change.</p>
-        </div>
-
-        <div class="problem-card reveal d2">
-          <div class="problem-card-num">03</div>
-          <div class="problem-card-title">Proposed Approach</div>
-          <p>Drawing on my psychology training, aviation experience, and bilingual communication skills, I propose a peer-support and psychological safety program for frontline airport workers that includes:</p>
-          <div class="problem-bullets">
-            <div class="problem-bullet"><span>→</span>Trained peer advocates embedded within ground operations crews</div>
-            <div class="problem-bullet"><span>→</span>Bilingual mental health resources for Spanish-speaking workforce members</div>
-            <div class="problem-bullet"><span>→</span>Structured team debriefs after high-stress incidents (modeled on aviation CRM principles)</div>
-            <div class="problem-bullet"><span>→</span>Partnership with airline HR departments and Employee Assistance Programs (EAPs)</div>
-          </div>
-          <p style="margin-top:1rem"><em>Potential collaborators: JetBlue HR, FAA Human Factors Division, SHRM, university psychology departments.</em></p>
+          <p><strong>Psychology:</strong> Human factors in aviation extend beyond cockpit performance — they include the long-term cognitive and physical effects of chronic fuel-compound exposure on ground crews. Understanding how environmental stressors affect worker behavior, health, and decision-making is a core psychological concern.</p>
+          <p style="margin-top:0.8rem"><strong>Sociology:</strong> The communities surrounding airports are disproportionately affected by poor air quality. This is a structural inequality issue — one that requires systemic solutions, not just individual action. Sociology provides the framework to understand who bears the cost of aviation's environmental footprint.</p>
+          <p style="margin-top:0.8rem"><strong>Political Science:</strong> Government policy is central to SAF adoption. Europe is leading with mandates; the U.S. is pursuing tax incentives. Understanding these policy levers — and their limitations — is essential to proposing realistic, scalable solutions. American energy conglomerates are already well-positioned to dominate SAF production if incentive structures hold.</p>
         </div>
 
         <div class="problem-card reveal">
+          <div class="problem-card-num">03</div>
+          <div class="problem-card-title">Proposed Approach</div>
+          <p>There is no realistic framework for powering commercial flights with 100% renewable energy at this time. Current technological limitations make SAF most effective when blended with traditional fuel — which is why the focus must be on building production capacity and blend ratios gradually. The proposed approach includes:</p>
+          <div class="problem-bullets">
+            <div class="problem-bullet"><span>→</span>Gradual implementation of SAF blends at major hub airports like LAX, where volume justifies investment</div>
+            <div class="problem-bullet"><span>→</span>Advocacy for expanded U.S. tax incentives to make domestic SAF production economically viable</div>
+            <div class="problem-bullet"><span>→</span>Airline-level investment in retrofitting aircraft to accommodate higher SAF blend ratios</div>
+            <div class="problem-bullet"><span>→</span>Consumer-facing transparency — empowering passengers who want to reduce their carbon footprint to choose SAF-using airlines</div>
+          </div>
+          <p style="margin-top:1rem"><em>Potential collaborators: ICAO, FAA, U.S. energy companies, airline HR & operations departments, environmental advocacy groups.</em></p>
+        </div>
+
+        <div class="problem-card reveal d1">
           <div class="problem-card-num">04</div>
           <div class="problem-card-title">Impact Statement</div>
-          <p>A psychologically safer aviation workforce benefits everyone — workers, passengers, and airlines. Reduced burnout means fewer human-error incidents. Better communication means safer ramp operations. Inclusive, bilingual resources mean broader reach across the diverse workforce that keeps major airports like LAX running. The interdisciplinary approach — combining psychology, sociology, and policy — is precisely what makes this solution more than just a wellness initiative. It's a systems-level intervention.</p>
+          <p>The benefits of SAF adoption fall into two major categories: environmental and economic. Environmentally, reducing chemical compound emissions at airports directly improves air quality for ground crews, pilots, and surrounding neighborhoods — many of which are low-income communities that have historically had no say in airport expansion decisions. Economically, the growth of domestic SAF production creates jobs, reduces dependency on volatile fossil fuel markets, and positions U.S. energy companies to lead a global transition. As someone who works on a tarmac every day, I can say with certainty: the aroma — or notable lack thereof — from SAF-powered aircraft is evidence enough that this matters.</p>
+          <div class="problem-refs">
+            <div class="problem-ref-label">References</div>
+            <div class="problem-ref">Rindlisbacher, T., & Miake-Lye, R. C. (2025). Local air quality and sustainable aviation fuels (SAF). In <em>ICAO Environmental Report</em> (pp. 356–359). International Civil Aviation Organization.</div>
+            <div class="problem-ref">Uddin, M. N., & Wang, F. (2025). Sustainable Aviation Fuels: Addressing Barriers to Global Adoption. <em>Applied Sciences, 15</em>(20), 10925. https://doi.org/10.3390/app152010925</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer><p>© 2026 Charles DeRosier IV</p><p>IDS 4013 · Arkansas State University</p></footer>
+  </div>
+
+  <!-- COVER LETTER -->
+  <div class="page" id="page-coverletter">
+    <div class="section">
+      <div class="section-header reveal">
+        <div class="section-label">IDS 4013 · Professional Development</div>
+        <h2 class="section-title">Cover Letter.</h2>
+      </div>
+      <div class="coverletter-wrap reveal">
+        <div class="coverletter-card">
+          <div class="coverletter-header">
+            <div class="cl-name">Charles DeRosier IV</div>
+            <div class="cl-contact">Long Beach, CA 90808 &nbsp;·&nbsp; coderosieriv@gmail.com</div>
+            <div class="cl-date">April 15, 2025</div>
+          </div>
+          <div class="cl-addressee">
+            <div class="cl-company">American Airlines</div>
+            <div class="cl-re">RE: Customer Assistance Representative</div>
+            <div class="cl-salutation">Dear Hiring Manager,</div>
+          </div>
+          <div class="cl-body">
+            <p>I heard that American Airlines is hiring a new Customer Assistance Representative and wanted to send you my application. Given my background, I believe I would be a great addition to your team.</p>
+            <p>With problem-solving and relationship-building skills, I have been successful in previous customer service roles. These experiences have sharpened my communication, research, and multitasking skills, enabling me to handle high workloads and exceed expectations. I work hard to serve every customer without compromising team goals or breaking company practices.</p>
+            <p>As well, I'm experienced in:</p>
+            <ul class="cl-list">
+              <li>Customer Service</li>
+              <li>Complaint Resolution</li>
+              <li>Communicating</li>
+            </ul>
+            <p>Thank you for your time. It would be a pleasure to speak with you and discuss this opportunity with American Airlines. I look forward to hearing from you soon.</p>
+          </div>
+          <div class="cl-closing">
+            <div>Sincerely,</div>
+            <div class="cl-sig">Charles DeRosier IV</div>
+          </div>
         </div>
       </div>
     </div>
@@ -1411,7 +1594,7 @@
   </div>
 
     <script>
-    var pages = ['home','about','statement','experience','skills','education','academic','careerplan','pitch','problem','contact','resume'];
+    var pages = ['home','about','statement','experience','skills','education','academic','careerplan','pitch','problem','coverletter','contact','resume'];
 
     function showPage(id) {
       if (pages.indexOf(id) === -1) id = 'home';
